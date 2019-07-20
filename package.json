@@ -1,0 +1,21 @@
+{
+  "name": "gakuto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "cheerio-httpcli": "^0.7.3",
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.5.1",
+    "express": "^4.16.4",
+    "google-translate-api": "^2.3.0",
+    "pinyin": "^2.9.0",
+    "translate": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gakuto",
+  "license": "ISC"
+}
