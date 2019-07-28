@@ -5,7 +5,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity('!pinyin 啊我死了');
+    client.user.setActivity('!zh args');
 });
 
 const events = {
@@ -38,14 +38,14 @@ client.on('message', message => {
     let channel = message.channel;
 
     if ((!message.content.startsWith(config.prefix) || message.author.bot) && channel.topic) {
-        channel.setName(`${channel.topic}-${multByteStringSlice(message.author.username, 4)}`);
+        channel.setName(`${channel.topic}-${multByteStringSlice(message.author.username, 6)}`);
         return
     }
 
     const args = message.content.slice(config.prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (command === 'pinyin') {
+    if (command === 'pinyin' || command === 'zh') {
         if (!args.length) {
             channel.send(`You didn't provide any arguments, ${message.author}!`);
         } else {
