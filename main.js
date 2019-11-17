@@ -38,7 +38,7 @@ client.on('message', message => {
     let channel = message.channel;
 
     if ((!message.content.startsWith(config.prefix) || message.author.bot) && channel.topic) {
-        channel.setName(`${channel.topic}📌${multByteStringSlice(message.author.username, 6)}`);
+        channel.setName(`${channel.topic}\u1F4CC${multByteStringSlice(message.author.username, 6)}`);
         return
     }
 
