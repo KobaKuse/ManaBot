@@ -23,7 +23,7 @@ client.on('message', message => {
         }
     } else if (command === "word" || command === "words") {
         if (!args.length || args[0].match('/')) {
-            channel.send(`You use / if args is a blank.\nFormat: noun pron. meaning example.\nexample:去 qù Go 我去日本`)
+            channel.send(`You use / if args is a blank.\nFormat: noun pron. meaning example.\nexample: /word 去 qù Go 我去日本`)
         } else {
             let options = {
                 uri:
@@ -41,7 +41,7 @@ client.on('message', message => {
                 }
             }
             request.post(options, function (error, response, body) { })
-            channel.send(`added **${args[0]}** to Words.`)
+            channel.send(`added **${args[0]}** to Dictionary.`)
         }
     }
 })
