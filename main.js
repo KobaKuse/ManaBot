@@ -22,9 +22,8 @@ client.on('message', message => {
             channel.send(pinyin(args.join()).join(' '))
         }
     } else if (command === "word" || command === "words") {
-        if (!args.length || !args[0].match('/')) {
-            channel.send(`You use / if args is a blank.
-            \nFormat: noun pron. meaning example`)
+        if (!args.length || args[0].match('/')) {
+            channel.send(`You use / if args is a blank.\nFormat: noun pron. meaning example`)
         } else {
             let options = {
                 uri:
