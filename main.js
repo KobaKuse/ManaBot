@@ -4,15 +4,6 @@ const pinyin = require('pinyin')
 const request = require('request')
 const client = new Discord.Client()
 
-function getNowYMD() {
-    var dt = new Date();
-    var y = dt.getFullYear();
-    var m = ("00" + (dt.getMonth() + 1)).slice(-2);
-    var d = ("00" + dt.getDate()).slice(-2);
-    var result = y + "/" + m + "/" + d;
-    return result;
-}
-
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity('!zh args')
@@ -56,3 +47,12 @@ client.on('message', message => {
 })
 
 client.login(config.token)
+
+function getNowYMD() {
+    var dt = new Date();
+    var y = dt.getFullYear();
+    var m = ("00" + (dt.getMonth() + 1)).slice(-2);
+    var d = ("00" + dt.getDate()).slice(-2);
+    var result = y + "/" + m + "/" + d;
+    return result;
+}
