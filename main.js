@@ -32,11 +32,17 @@ client.on('message', message => {
                 headers: {
                     "Content-type": "application/json",
                 },
+                // json: {
+                //     "noun": args[0],
+                //     "pron": args[1] ? args[1] : "/",
+                //     "meaning": args[2] ? args[2] : "/",
+                //     "example": args[3] ? args[3] : "/",
+                // }
                 json: {
                     "noun": args[0],
-                    "pron": args[1] ? args[1] : "/",
-                    "meaning": args[2] ? args[2] : "/",
-                    "example": args[3] ? args[3] : "/",
+                    "pron": args[1],
+                    "meaning": args[2],
+                    "example": args[3],
                 }
             }
             request.post(options, function (error, response, body) { })
