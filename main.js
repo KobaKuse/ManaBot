@@ -27,7 +27,7 @@ client.on('message', message => {
         } else {
             let options = {
                 uri:
-                    "https://script.google.com/macros/s/AKfycbz4FSe6iSlsQBfIBORc2DjkFQCy9_9vjbj4hgzc/exec"
+                    "https://script.google.com/macros/s/AKfycbxe3cR_njk9IKsH9aQnxGvDrAUV4OixC4iptUQdKrZLCt4g23c/exec"
                 ,
                 headers: {
                     "Content-type": "application/json",
