@@ -22,8 +22,9 @@ client.on('message', message => {
             channel.send(pinyin(args.join()).join(' '))
         }
     } else if (command === "word" || command === "words") {
-        if (!args.length) {
-            channel.send(`You didn't provide any arguments.`)
+        if (!args.length || !args[0].match('/')) {
+            channel.send(`You use / if args is a blank.
+            \nFormat: noun pron. meaning example`)
         } else {
             let options = {
                 uri:
@@ -34,14 +35,14 @@ client.on('message', message => {
                 },
                 json: {
                     "noun": args[0],
-                    "pronunciation": args[1],
-                    "meaning": args[2],
-                    "example": args[3],
-                    "time": args[4]
+                    "pron": args[1] ? args[1] : "/",
+                    "meaning": args[2] ? args[2] : "/",
+                    "example": args[3] ? args[3] : "/",
+                    "time": getNowYMD()
                 }
             }
             request.post(options, function (error, response, body) { })
-            channel.send(`args ${args[0]} ${args[1]} ${args[2]} ${args[3]} ${args[4]}`)
+            channel.send(`Bot added ${args[0]} to Words.`)
         }
     }
 })
