@@ -24,7 +24,7 @@ client.on('message', message => {
     } else if (command === "word" || command === "words") {
         if (!args.length) {
             channel.send(`You didn't provide any arguments.`)
-        } else if (args[0]) {
+        } else {
             let options = {
                 uri:
                     "https://script.google.com/macros/s/AKfycbz4FSe6iSlsQBfIBORc2DjkFQCy9_9vjbj4hgzc/exec"
@@ -37,11 +37,11 @@ client.on('message', message => {
                     "pronunciation": args[1],
                     "meaning": args[2],
                     "example": args[3],
-                    "time": getNowYMD()
+                    "time": args[4]
                 }
             }
             request.post(options, function (error, response, body) { })
-            channel.send(`args ${args[0]} ${args[1]} ${args[2]} ${args[3]} `, getNowYMD())
+            channel.send(`args ${args[0]} ${args[1]} ${args[2]} ${args[3]} ${args[4]}`)
         }
     }
 })
