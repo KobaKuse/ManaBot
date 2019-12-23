@@ -27,22 +27,17 @@ client.on('message', message => {
         } else {
             let options = {
                 uri:
-                    "https://script.google.com/macros/s/AKfycbxe3cR_njk9IKsH9aQnxGvDrAUV4OixC4iptUQdKrZLCt4g23c/exec"
+                    "https://script.google.com/macros/s/AKfycbz4FSe6iSlsQBfIBORc2DjkFQCy9_9vjbj4hgzc/exec"
                 ,
                 headers: {
                     "Content-type": "application/json",
                 },
-                // json: {
-                //     "noun": args[0],
-                //     "pron": args[1] ? args[1] : "/",
-                //     "meaning": args[2] ? args[2] : "/",
-                //     "example": args[3] ? args[3] : "/",
-                // }
                 json: {
                     "noun": args[0],
-                    "pron": args[1],
-                    "meaning": args[2],
-                    "example": args[3],
+                    "pron": args[1] ? args[1] : "/",
+                    "meaning": args[2] ? args[2] : "/",
+                    "example": args[3] ? args[3] : "/",
+                    "time": getNowYMD()
                 }
             }
             request.post(options, function (error, response, body) { })
