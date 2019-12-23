@@ -37,11 +37,10 @@ client.on('message', message => {
                     "pron": args[1] ? args[1] : "/",
                     "meaning": args[2] ? args[2] : "/",
                     "example": args[3] ? args[3] : "/",
-                    "time": getNowYMD()
                 }
             }
             request.post(options, function (error, response, body) { })
-            channel.send(`Bot added ${args[0]} to Words.`)
+            channel.send(`added **${args[0]}** to Words.`)
         }
     }
 })
