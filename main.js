@@ -21,7 +21,7 @@ const postWords = (args, message) => {
         }
     }
     request.post(options, function (error, response, body) { })
-    message.reply(`added **${args[0]}** to Dictionary`).then(r => r.delete(10000))
+    message.reply(`added **${args[0]}** to Dictionary`).then(r => r.delete(600000))
 }
 
 client.on('ready', () => {
@@ -49,17 +49,17 @@ client.on('message', message => {
 
         let postData = []
 
-        message.reply('Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(10000))
-        channel.awaitMessages(filter, { max: 1, time: 600000 }).then(j => {
+        message.reply('Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(30000))
+        channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
             if (!j.first() || j.first().content === "-") {
-                return message.reply('**Word or Sentence** is blank').then(r => r.delete(10000))
+                return message.reply('**Word or Sentence** is blank').then(r => r.delete(30000))
             }
-            message.reply('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(10000))
-            channel.awaitMessages(filter, { max: 1, time: 600000 }).then(k => {
-                message.reply('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(10000))
-                channel.awaitMessages(filter, { max: 1, time: 600000 }).then(l => {
-                    message.reply('Please type **Example** of words... will expire in a minute').then(r => r.delete(10000))
-                    channel.awaitMessages(filter, { max: 1, time: 600000 }).then(m => {
+            message.reply('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(30000))
+            channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
+                message.reply('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(30000))
+                channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
+                    message.reply('Please type **Example** of words... will expire in a minute').then(r => r.delete(30000))
+                    channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
                         postData[0] = j.first().content
                         postData[1] = k.first() ? k.first().content : "-"
                         postData[2] = l.first() ? l.first().content : "-"
