@@ -49,6 +49,7 @@ client.on('message', message => {
 
         let postData = []
 
+        channel.send('If it is blank please type **-**').then(r => r.delete(60000))
         message.reply('Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(30000))
         channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
             if (!j.first() || j.first().content === "-") {
@@ -69,14 +70,6 @@ client.on('message', message => {
                 })
             })
         })
-    }
-
-    else if (command === "word" || command === "words") {
-        if (!args.length || args[0].match('/')) {
-            channel.send(`You use / if args is a blank.\nFormat: noun pron. meaning example.\nexample: /word 去 qù Go 我去日本`)
-        } else {
-
-        }
     }
 
     channel.stopTyping()
