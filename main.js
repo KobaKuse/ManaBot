@@ -49,7 +49,7 @@ client.on('message', message => {
 
         let postData = []
 
-        message.reply('If it is blank please type **-**').then(r => r.delete(60000))
+        message.reply('If it is blank please type **(-)**').then(r => r.delete(60000))
         message.reply('Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(30000))
         channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
             if (!j.first() || j.first().content === "-") {
