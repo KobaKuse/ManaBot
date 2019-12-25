@@ -37,13 +37,13 @@ const reciveCommand = (message, channel, sheetUrl) => {
         j.first().delete(10000)
         channel.send('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(10000))
         channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
-            k.first().delete(10000)
+            if (k.first()) k.first().delete(10000)
             channel.send('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(10000))
             channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
-                l.first().delete(10000)
+                if (l.first()) l.first().delete(10000)
                 channel.send('Please type **Example** of words... will expire in a minute').then(r => r.delete(10000))
                 channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
-                    m.first().delete(10000)
+                    if (m.first()) m.first().delete(10000)
                     postData[0] = j.first().content
                     postData[1] = k.first() ? k.first().content : "-"
                     postData[2] = l.first() ? l.first().content : "-"
