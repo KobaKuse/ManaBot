@@ -29,17 +29,21 @@ const reciveCommand = (message, channel, sheetUrl) => {
     let postData = []
     message.delete(65000)
 
-    channel.send('If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(30000))
+    channel.send('If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(10000))
     channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
         if (!j.first() || j.first().content === "-") {
             return channel.send('**Word or Sentence** was blank').then(r => r.delete(10000))
         }
-        channel.send('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(30000))
+        j.first().delete(10000)
+        channel.send('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(10000))
         channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
-            channel.send('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(30000))
+            k.first().delete(10000)
+            channel.send('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(10000))
             channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
-                channel.send('Please type **Example** of words... will expire in a minute').then(r => r.delete(30000))
+                l.first().delete(10000)
+                channel.send('Please type **Example** of words... will expire in a minute').then(r => r.delete(10000))
                 channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
+                    m.first().delete(10000)
                     postData[0] = j.first().content
                     postData[1] = k.first() ? k.first().content : "-"
                     postData[2] = l.first() ? l.first().content : "-"
