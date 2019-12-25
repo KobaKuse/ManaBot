@@ -27,7 +27,7 @@ const postWords = (args, message, sheetUrl) => {
 const reciveCommand = (message, channel, sheetUrl) => {
     const filter = m => m.author.id === message.author.id
     let postData = []
-    message.delete(65000)
+    message.delete(10000)
 
     channel.send('If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(10000))
     channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
