@@ -52,13 +52,13 @@ const postWords = (postData, channel, gasUrl) => {
     }
     request.post(options, function (error, response, body) { })
     if (gasUrl === GAS_URL_JP) {
-        botMessageSend(`added **${postData[0]}** to JP.\[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
+        botMessageSend(`added **${postData[0]}** to JP.\n[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
     } else if (gasUrl === GAS_URL_ZH) {
-        botMessageSend(`added **${postData[0]}** to ZH.\[Click Here](${SHEET_URL_ZH})`, channel, 0) //ZH
+        botMessageSend(`added **${postData[0]}** to ZH.\n[Click Here](${SHEET_URL_ZH})`, channel, 0) //ZH
     } else if (gasUrl === GAS_URL_EN) {
-        botMessageSend(`added **${postData[0]}** to EN.\[Click Here](${SHEET_URL_EN})`, channel, 0) //EN
+        botMessageSend(`added **${postData[0]}** to EN.\n[Click Here](${SHEET_URL_EN})`, channel, 0) //EN
     } else {
-        botMessageSend(`added **${postData[0]}** to JP.\[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
+        botMessageSend(`added **${postData[0]}** to JP.\n[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
     }
 }
 
@@ -97,7 +97,7 @@ const reciveCommand = (message, channel, gasUrl) => {
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity('arknights2.jp')
+    client.user.setActivity('arknights2.jp', { type: 'WATCHING' })
 })
 
 client.on('message', message => {
