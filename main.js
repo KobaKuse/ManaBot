@@ -12,7 +12,29 @@ const SHEET_URL_JP = "https://docs.google.com/spreadsheets/d/1tbT1qslmvK1uqk9EAu
     SHEET_URL_ZH = "https://docs.google.com/spreadsheets/d/1Re-W0qqaQPHzPUGgCHf0X51ER1aYBX8_z-rF5d3K67E/edit?usp=sharing",
     SHEET_URL_EN = "https://docs.google.com/spreadsheets/d/1MmBdoduV2FbB2npoc0O13tAXhlkTeaQVQOEuE-o08jI/edit?usp=sharing"
 
-const postWords = (args, message, gasUrl) => {
+const botMessageSend = (string, channel, deleteTime) => {
+    channel.send({
+        embed: {
+            color: 14003441,
+            author: {
+                name: client.user.username,
+                icon_url: client.user.avatarURL
+            },
+            fields: [{
+                name: "BOT Message",
+                value: string,
+                inline: true
+            },
+            ],
+        }
+    }).then(r => {
+        if (!deleteTime === 0) {
+            r.delete(deleteTime)
+        }
+    })
+}
+
+const postWords = (postData, channel, gasUrl) => {
     let options = {
         uri:
             gasUrl
@@ -21,22 +43,22 @@ const postWords = (args, message, gasUrl) => {
             "Content-type": "application/json",
         },
         json: {
-            "noun": args[0],
-            "pron": args[1],
-            "meaning": args[2],
-            "example": args[3],
+            "noun": postData[0],
+            "pron": postData[1],
+            "meaning": postData[2],
+            "example": postData[3],
             "time": getNowYMD()
         }
     }
     request.post(options, function (error, response, body) { })
-    if (gasUrl === GAS_URL_JP) { //JP
-        message.reply(`added **${args[0]}** to JP.\nCheck: ${SHEET_URL_JP}`)
-    } else if (gasUrl === GAS_URL_ZH) { //ZH
-        message.reply(`added **${args[0]}** to ZH.\nCheck: ${SHEET_URL_ZH}`)
-    } else if (gasUrl === GAS_URL_EN) { //EN
-        message.reply(`added **${args[0]}** to EN.\nCheck: ${SHEET_URL_EN}`)
-    } else { //JP
-        message.reply(`added **${args[0]}** to JP.\nCheck: ${SHEET_URL_JP}`)
+    if (gasUrl === GAS_URL_JP) {
+        botMessageSend(`added **${postData[0]}** to JP.\[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
+    } else if (gasUrl === GAS_URL_ZH) {
+        botMessageSend(`added **${postData[0]}** to ZH.\[Click Here](${SHEET_URL_ZH})`, channel, 0) //ZH
+    } else if (gasUrl === GAS_URL_EN) {
+        botMessageSend(`added **${postData[0]}** to EN.\[Click Here](${SHEET_URL_EN})`, channel, 0) //EN
+    } else {
+        botMessageSend(`added **${postData[0]}** to JP.\[Click Here](${SHEET_URL_JP})`, channel, 0) //JP
     }
 }
 
@@ -45,35 +67,37 @@ const reciveCommand = (message, channel, gasUrl) => {
     let postData = []
     message.delete(10000)
 
-    channel.send('If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute').then(r => r.delete(10000))
+    botMessageSend(`If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute`, channel, 10000)
     channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
         if (!j.first() || j.first().content === "-") {
-            return channel.send('**Word or Sentence** was blank').then(r => r.delete(10000))
+            return botMessageSend(`**Word or Sentence** was blank`, channel, 10000)
         }
         j.first().delete(10000)
-        channel.send('Please type **Pronunciation** of words... will expire in a minute').then(r => r.delete(10000))
+        botMessageSend(`Please type **Pronunciation** of words... will expire in a minute`, channel, 10000)
         channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
             if (k.first()) k.first().delete(10000)
-            channel.send('Please type **Meaning** of words... will expire in a minute').then(r => r.delete(10000))
+            botMessageSend(`Please type **Meaning** of words... will expire in a minute`, channel, 10000)
             channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
                 if (l.first()) l.first().delete(10000)
-                channel.send('Please type **Example** of words... will expire in a minute').then(r => r.delete(10000))
+                botMessageSend(`Please type **Example** of words... will expire in a minute`, channel, 10000)
                 channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
                     if (m.first()) m.first().delete(10000)
                     postData[0] = j.first().content
                     postData[1] = k.first() ? k.first().content : "-"
                     postData[2] = l.first() ? l.first().content : "-"
                     postData[3] = m.first() ? m.first().content : "-"
-                    postWords(postData, message, gasUrl)
+                    postWords(postData, channel, gasUrl)
                 })
             })
         })
     })
 }
 
+
+
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
-    client.user.setActivity('!zh args')
+    client.user.setActivity('arknights2.jp')
 })
 
 client.on('message', message => {
@@ -99,6 +123,8 @@ client.on('message', message => {
         } else {
             reciveCommand(message, channel, GAS_URL_JP)//JP
         }
+    } else if (command === 't') {
+        botMessageSend(`Hello`, channel, 5000)
     }
     channel.stopTyping()
 })
