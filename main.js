@@ -100,7 +100,6 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
-    console.log(message.cleanContent)
     let channel = message.channel
     const args = message.content.slice(config.prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
@@ -130,6 +129,7 @@ client.on('message', message => {
         botMessageSend(`Hello`, channel, 5000)
     }
     channel.stopTyping()
+    console.log(`${message.author.username}: ${message.cleanContent}`)
 })
 
 client.login(config.token)
