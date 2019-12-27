@@ -28,7 +28,7 @@ const botMessageSend = (string, channel, deleteTime) => {
             ],
         }
     }).then(r => {
-        if (!deleteTime === 0) {
+        if (!deleteTime == 0) {
             r.delete(deleteTime)
         }
     })
@@ -65,7 +65,6 @@ const postWords = (postData, channel, gasUrl) => {
 const reciveCommand = (message, channel, gasUrl) => {
     const filter = m => m.author.id === message.author.id
     let postData = []
-    message.delete(10000)
 
     botMessageSend(`If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute`, channel, 10000)
     channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
@@ -101,6 +100,7 @@ client.on('ready', () => {
 })
 
 client.on('message', message => {
+    console.log(message.cleanContent)
     let channel = message.channel
     const args = message.content.slice(config.prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
@@ -108,12 +108,14 @@ client.on('message', message => {
     channel.startTyping()
 
     if (command === 'pinyin' || command === 'zh') {
+        message.delete(10000)
         if (!args.length) {
-            return channel.send(`You didn't provide any arguments.`).then(r => r.delete(10000))
+            return botMessageSend(`You didn't provide any arguments.`, channel, 10000)
         } else {
-            channel.send(pinyin(args.join()).join(' '))
+            botMessageSend(`${message.content}\n${pinyin(args.join()).join(' ')}`, channel, 0)
         }
     } else if (command === 'word' || command === 'w') {
+        message.delete(10000)
         if (args[0] === 'jp' || args[0] === 'j') {
             reciveCommand(message, channel, GAS_URL_JP)//JP
         } else if (args[0] === 'zh' || args[0] === 'z') {
@@ -124,6 +126,7 @@ client.on('message', message => {
             reciveCommand(message, channel, GAS_URL_JP)//JP
         }
     } else if (command === 't') {
+        message.delete(10000)
         botMessageSend(`Hello`, channel, 5000)
     }
     channel.stopTyping()
