@@ -92,8 +92,6 @@ const reciveCommand = (message, channel, gasUrl) => {
     })
 }
 
-
-
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity('arknights2.jp', { type: 'WATCHING' })
@@ -142,3 +140,8 @@ function getNowYMD() {
     var result = y + "/" + m + "/" + d;
     return result;
 }
+
+setInterval(() => {
+    channel = client.channels.get(691221361116446752)
+    channel.send("!d bump")
+}, 10 * 1000)
