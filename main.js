@@ -97,7 +97,8 @@ client.on('ready', () => {
     client.user.setActivity('arknights2.jp', { type: 'WATCHING' })
 
     setInterval(() => {
-        client.channels.get(691221361116446752).send("!d bump")
+        console.log("Count")
+        // client.channels.get(691221361116446752).send("!d bump")
     }, 10 * 1000)
 })
 
