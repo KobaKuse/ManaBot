@@ -63,33 +63,35 @@ const postWords = (postData, channel, gasUrl) => {
 }
 
 const reciveCommand = (message, channel, gasUrl) => {
-    const filter = m => m.author.id === message.author.id && !!m.author.id
-    let postData = []
+    if (message.author.id !== client.author.id) {
+        const filter = m => m.author.id === message.author.id
+        let postData = []
 
-    botMessageSend(`If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute`, channel, 10000)
-    channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
-        if (!j.first() || j.first().content === "-") {
-            return botMessageSend(`**Word or Sentence** was blank`, channel, 10000)
-        }
-        j.first().delete(10000)
-        botMessageSend(`Please type **Pronunciation** of words... will expire in a minute`, channel, 10000)
-        channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
-            if (k.first()) k.first().delete(10000)
-            botMessageSend(`Please type **Meaning** of words... will expire in a minute`, channel, 10000)
-            channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
-                if (l.first()) l.first().delete(10000)
-                botMessageSend(`Please type **Example** of words... will expire in a minute`, channel, 10000)
-                channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
-                    if (m.first()) m.first().delete(10000)
-                    postData[0] = j.first().content
-                    postData[1] = k.first() ? k.first().content : "-"
-                    postData[2] = l.first() ? l.first().content : "-"
-                    postData[3] = m.first() ? m.first().content : "-"
-                    postWords(postData, channel, gasUrl)
+        botMessageSend(`If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute`, channel, 10000)
+        channel.awaitMessages(filter, { max: 1, time: 60000 }).then(j => {
+            if (!j.first() || j.first().content === "-") {
+                return botMessageSend(`**Word or Sentence** was blank`, channel, 10000)
+            }
+            j.first().delete(10000)
+            botMessageSend(`Please type **Pronunciation** of words... will expire in a minute`, channel, 10000)
+            channel.awaitMessages(filter, { max: 1, time: 60000 }).then(k => {
+                if (k.first()) k.first().delete(10000)
+                botMessageSend(`Please type **Meaning** of words... will expire in a minute`, channel, 10000)
+                channel.awaitMessages(filter, { max: 1, time: 60000 }).then(l => {
+                    if (l.first()) l.first().delete(10000)
+                    botMessageSend(`Please type **Example** of words... will expire in a minute`, channel, 10000)
+                    channel.awaitMessages(filter, { max: 1, time: 60000 }).then(m => {
+                        if (m.first()) m.first().delete(10000)
+                        postData[0] = j.first().content
+                        postData[1] = k.first() ? k.first().content : "-"
+                        postData[2] = l.first() ? l.first().content : "-"
+                        postData[3] = m.first() ? m.first().content : "-"
+                        postWords(postData, channel, gasUrl)
+                    })
                 })
             })
         })
-    })
+    }
 }
 
 
