@@ -63,7 +63,6 @@ const postWords = (postData, channel, gasUrl) => {
 }
 
 const reciveCommand = (message, channel, gasUrl) => {
-    if (message.author.bot) return
     const filter = m => m.author.id === message.author.id
     let postData = []
 
@@ -91,7 +90,6 @@ const reciveCommand = (message, channel, gasUrl) => {
             })
         })
     })
-
 }
 
 
