@@ -102,7 +102,7 @@ client.on('message', message => {
     const args = message.content.slice(config.prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
 
-    channel.startTyping()
+    // channel.startTyping()
 
     if (command === 'pinyin' || command === 'zh') {
         message.delete(10000)
@@ -126,7 +126,7 @@ client.on('message', message => {
         message.delete(10000)
         botMessageSend(`Hello`, channel, 5000)
     }
-    channel.stopTyping()
+    // channel.stopTyping()
     console.log(`${message.author.username}: ${message.cleanContent}`)
 })
 
