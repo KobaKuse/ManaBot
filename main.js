@@ -63,7 +63,7 @@ const postWords = (postData, channel, gasUrl) => {
 }
 
 const reciveCommand = (message, channel, gasUrl) => {
-    const filter = m => m.author.id === message.author.id
+    const filter = m => m.author.id === message.author.id && !!m.author.id
     let postData = []
 
     botMessageSend(`If it is blank please type **( - )** Please type **Word or Sentence**... will expire in a minute`, channel, 10000)
