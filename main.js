@@ -95,10 +95,6 @@ const reciveCommand = (message, channel, gasUrl) => {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`)
     client.user.setActivity('arknights2.jp', { type: 'WATCHING' })
-
-    // setInterval(() => {
-    //     client.channels.get("691221361116446752").send("!d bump")
-    // }, 10 * 1000)
 })
 
 client.on('message', message => {
