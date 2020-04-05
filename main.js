@@ -124,6 +124,9 @@ client.on('message', message => {
         } else {
             reciveCommand(message, channel, GAS_URL_JP)//JP
         }
+    } else if (command === 'r' || command === 'recruit' || command === '募集') {
+        message.react('⭕')
+        message.react('❌')
     } else if (command === 't') {
         message.delete(10000)
         botMessageSend(`Hello`, channel, 5000)
