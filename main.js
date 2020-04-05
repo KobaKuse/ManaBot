@@ -127,7 +127,7 @@ client.on('message', message => {
     } else if (command === 'r' || command === 'recruit' || command === '募集') {
         message.react('⭕')
         message.react('❌')
-        botMessageSend(`${message.author.username}が募集中…`, channel, 0)
+        botMessageSend(`${message.author.username}が募集中…\n参加する人は⭕不参加の人は❌をつけて下さい`, channel, 0)
     } else if (command === 't') {
         message.delete(10000)
         botMessageSend(`Hello`, channel, 5000)
